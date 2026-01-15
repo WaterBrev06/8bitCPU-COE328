@@ -1,0 +1,20 @@
+LIBRARY ieee; 
+USE ieee.std_logic_1164.all;
+
+ENTITY latch1 IS
+	PORT (A: IN STD_LOGIC_VECTOR (7 DOWNTO 0); --8bit input A
+			Resetn, Clock: IN STD_LOGIC ; -- 1bit clock n reset 
+			Q : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)); --8bit output
+END latch1;
+
+ARCHITECTURE Behavior OF latch1 IS
+BEGIN
+	PROCESS (Resetn, Clock)
+	BEGIN
+		IF Resetn = '1' THEN --reset = 1 so no operation
+			Q <= "00000000" ;
+		ELSIF Clock'EVENT AND Clock = '1' THEN -- reset = 0, operation. Chosen due to machine.vhd
+			Q <= A;
+		END IF;
+	END PROCESS;
+END Behavior;
